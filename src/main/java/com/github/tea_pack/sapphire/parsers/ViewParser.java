@@ -1,10 +1,10 @@
 package com.github.tea_pack.sapphire.parsers;
 
-import com.github.tea_pack.sapphire.entities.View;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import com.github.tea_pack.sapphire.entities.View;
 
 public class ViewParser {
 	// TODO: move this constant
@@ -15,7 +15,7 @@ public class ViewParser {
 		int deviceID = Integer.parseInt(values[1].substring(1));
 		LocalDateTime startTime = LocalDateTime.parse(values[2], DATE_TIME_FORMAT);
 
-		return new View(clientID, deviceID, startTime ); // TODO: finish parsing
+		//return new View(clientID, deviceID, startTime ); // TODO: finish parsing
 	}
 
 	public static List<View> parse(List<String[]> values) {
