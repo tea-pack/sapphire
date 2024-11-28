@@ -1,6 +1,7 @@
 package com.github.tea_pack.sapphire.parsers;
 
 import java.io.BufferedReader;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -11,6 +12,10 @@ public class CSVParser {
 
 	public CSVParser(Path filePath) throws Exception {
 		this.reader = Files.newBufferedReader(filePath);
+	}
+
+	public CSVParser(String source) {
+		this.reader = new BufferedReader(new StringReader(source));
 	}
 
 	public List<String[]> consume() throws Exception {
