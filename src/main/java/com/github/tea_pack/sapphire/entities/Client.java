@@ -1,16 +1,26 @@
 package com.github.tea_pack.sapphire.entities;
 
-public class Client {
-    public int entityID;
-	public final int ID;
-	public String address;
-	public Gender gender;
-	public Range age;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	public Client(int ID, String address, Gender gender, Range age) {
-		this.ID = ID;
-		this.address = address;
-		this.gender = gender;
-		this.age = age;
-	}
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Client {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private long ID;
+    private String address;
+    private Gender gender;
+    private Range age;
+
 }
