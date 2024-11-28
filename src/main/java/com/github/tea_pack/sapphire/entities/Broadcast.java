@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Calendar;
 
 public class Broadcast {
+    public int entityID;
 	public final String name;
 	public final int ageRating;
 	public final Calendar start;

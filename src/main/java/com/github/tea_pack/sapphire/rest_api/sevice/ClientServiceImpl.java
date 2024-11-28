@@ -20,7 +20,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void creat(Client client) {
         final int clientId = CLIENT_ID_HOLDER.incrementAndGet();
-        client.setId(clientId);
+        client.entityID = clientId;
         CLIENT_REPOSITORY_MAP.put(clientId, client);
     }
 
@@ -37,7 +37,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean update(Client client, int id) {
         if (CLIENT_REPOSITORY_MAP.containsKey(id)) {
-            client.setId(id);
+            client.entityID = id;
             CLIENT_REPOSITORY_MAP.put(id, client);
             return true;
         }
