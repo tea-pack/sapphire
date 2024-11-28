@@ -1,18 +1,18 @@
 package com.github.tea_pack.sapphire.entities;
 
 import java.time.Duration;
-import java.util.Calendar;
+import java.time.LocalDateTime;
 
 public class View {
 	public int clientID;
 	public int deviceID;
-	public Calendar startTime;
+	public LocalDateTime startTime;
 	public Duration watchDuration;
 	public Broadcast broadcast;
 	public String category;
 	public String[] genres;
 
-	public View(int clientID, int deviceID, Calendar startTime, Duration watchDuration, Broadcast broadcast, String category, String[] genres) {
+	public View(int clientID, int deviceID, LocalDateTime startTime, Duration watchDuration, Broadcast broadcast, String category, String[] genres) {
 		this.clientID = clientID;
 		this.deviceID = deviceID;
 		this.startTime = startTime;
