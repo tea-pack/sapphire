@@ -24,22 +24,22 @@ public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping
+    @PostMapping("/client")
     public ResponseEntity<Client> create(@RequestBody ClientDTO dto) {
         return new ResponseEntity<>(clientService.create(dto), HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/client")
     public ResponseEntity<List<Client>> readAll() {
         return new ResponseEntity<>(clientService.readAll(), HttpStatus.OK);
     }
 
-    @PutMapping
+    @PutMapping("/client")
     public ResponseEntity<Client> update(@RequestBody Client client) {
         return new ResponseEntity<>(clientService.update(client), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/client{id}")
     public HttpStatus delete(@PathVariable Long id) {
         clientService.delete(id);
         return HttpStatus.OK;

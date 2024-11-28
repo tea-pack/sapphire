@@ -1,12 +1,20 @@
 package com.github.tea_pack.sapphire.entities;
 
-public class Channel {
-    public int entityID;
-	public final int ID;
-	public String pack;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-	public Channel(int ID, String pack){
-		this.ID = ID;
-		this.pack = pack;
-	}
+@Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class Channel {
+
+    @Id
+    public long ID;
+    public String pack;
 }

@@ -1,13 +1,11 @@
 package com.github.tea_pack.sapphire.statistics;
 
-import java.util.HashMap;
-
 public class ChannelPopulartiy {
-	public class Stats {
-		int totalTimeWatched;
-		int totalWatchers;
-	}
-	public HashMap<Integer, Stats> getBroadcastWatchTime() {
-
-	}
+	//public class Stats {
+	//	int totalTimeWatched;
+	//	int totalWatchers;
+	//}
+	//public HashMap<Integer, Stats> getBroadcastWatchTime() {
+	//
+	//}
 }
