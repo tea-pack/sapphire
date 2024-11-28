@@ -2,6 +2,7 @@ package com.github.tea_pack.sapphire.entities;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class View {
 	public int clientID;
@@ -10,9 +11,9 @@ public class View {
 	public Duration watchDuration;
 	public Broadcast broadcast;
 	public String category;
-	public String[] genres;
+	public List<String> genres;
 
-	public View(int clientID, int deviceID, LocalDateTime startTime, Duration watchDuration, Broadcast broadcast, String category, String[] genres) {
+	public View(int clientID, int deviceID, LocalDateTime startTime, Duration watchDuration, Broadcast broadcast, String category, List<String> genres) {
 		this.clientID = clientID;
 		this.deviceID = deviceID;
 		this.startTime = startTime;
