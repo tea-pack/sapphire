@@ -18,9 +18,11 @@ public class ClientService {
 
     public Client create(ClientDTO dto) {
         return clientRepository.save(Client.builder()
+                .ID(dto.getID())
                 .address(dto.getAddress())
                 .gender(dto.getGender())
-                .age(dto.getAge())
+                .ageMin(dto.getAgeMin())
+                .ageMax(dto.getAgeMax())
                 .build());
     }
 

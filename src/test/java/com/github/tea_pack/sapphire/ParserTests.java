@@ -82,7 +82,8 @@ public class ParserTests {
             for (Client client : list) {
                 System.out.printf("%d; gender: %s, %d-%d years; address: \"%s\"%n", client.getID(),
                         client.getGender().toString(),
-                        client.getAge().start, client.getAge().end, client.getAddress());
+                        // client.getAge().start, client.getAge().end,
+                        client.getAddress());
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
