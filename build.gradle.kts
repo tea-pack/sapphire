@@ -24,6 +24,7 @@ repositories {
 }
 
 dependencies {
+    implementation("org.springframework:spring-web:6.2.0")
 	implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
 	implementation("org.springframework.boot:spring-boot-starter-jdbc")
 	compileOnly("org.projectlombok:lombok")
