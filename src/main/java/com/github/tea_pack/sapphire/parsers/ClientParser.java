@@ -6,17 +6,12 @@ import com.github.tea_pack.sapphire.entities.Range;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ClientParser {
 	public static Client parse(String[] values) {
 		int ID = Integer.parseInt(values[0].substring(1));
 		String address = values[1];
-		Gender gender = switch (values[2].toUpperCase(Locale.of("ru"))){
-			case "М", "M" -> Gender.MALE;
-			case "Ж", "W", "F" -> Gender.FEMALE;
-			default -> Gender.UNKNOWN;
-		};
+		Gender gender = Gender.of(values[2]);
 		Range age = Range.from(values[3]);
 		return new Client(ID, address, gender, age);
 	}
