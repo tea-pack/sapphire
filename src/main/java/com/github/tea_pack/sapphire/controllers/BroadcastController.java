@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.controllers;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.BroadcastDB;
 import com.github.tea_pack.sapphire.dtos.BroadcastDTO;
-import com.github.tea_pack.sapphire.entities.Broadcast;
 import com.github.tea_pack.sapphire.services.BroadcastService;
 
 import org.springframework.http.HttpStatus;
@@ -20,35 +20,35 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/broadcast")
+@RequestMapping("/broadcasts")
 @AllArgsConstructor
 public class BroadcastController {
 
     private final BroadcastService broadcastService;
 
     @PostMapping
-    public ResponseEntity<Broadcast> create(@RequestBody BroadcastDTO dto) {
+    public ResponseEntity<BroadcastDB> create(@RequestBody BroadcastDTO dto) {
         return new ResponseEntity<>(broadcastService.create(dto), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Broadcast>> readAll() {
+    public ResponseEntity<List<BroadcastDB>> readAll() {
         return new ResponseEntity<>(broadcastService.readAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{clientId}")
-    public ResponseEntity<Broadcast> readById(@PathVariable long broadcastId) {
+    @GetMapping("/{broadastId}")
+    public ResponseEntity<BroadcastDB> readById(@PathVariable long broadcastId) {
         return new ResponseEntity<>(broadcastService.readById(broadcastId), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Broadcast> update(@RequestBody Broadcast broadcast) {
+    public ResponseEntity<BroadcastDB> update(@RequestBody BroadcastDB broadcast) {
         return new ResponseEntity<>(broadcastService.update(broadcast), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public HttpStatus delete(@PathVariable Long id) {
-        broadcastService.delete(id);
+    @DeleteMapping("/{broadcastId}")
+    public HttpStatus delete(@PathVariable Long broadcastId) {
+        broadcastService.delete(broadcastId);
         return HttpStatus.OK;
     }
 }

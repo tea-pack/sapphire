@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.controllers;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.ClientDB;
 import com.github.tea_pack.sapphire.dtos.ClientDTO;
-import com.github.tea_pack.sapphire.entities.Client;
 import com.github.tea_pack.sapphire.services.ClientService;
 
 import org.springframework.http.HttpStatus;
@@ -28,27 +28,27 @@ public class ClientController {
     private final ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<Client> create(@RequestBody ClientDTO dto) {
+    public ResponseEntity<ClientDB> create(@RequestBody ClientDTO dto) {
         return new ResponseEntity<>(clientService.create(dto), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Client>> readAll() {
+    public ResponseEntity<List<ClientDB>> readAll() {
         return new ResponseEntity<>(clientService.readAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{clientId}")
-    public ResponseEntity<Client> readById(@PathVariable long clientId) {
+    public ResponseEntity<ClientDB> readById(@PathVariable long clientId) {
         return new ResponseEntity<>(clientService.readById(clientId), HttpStatus.OK);
     }
 
     @GetMapping("/statistics")
-    public ResponseEntity<List<Client>> readByGender(@RequestParam(name = "gender") String gender) {
+    public ResponseEntity<List<ClientDB>> readByGender(@RequestParam(name = "gender") String gender) {
         return new ResponseEntity<>(clientService.readByGender(gender), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Client> update(@RequestBody Client client) {
+    public ResponseEntity<ClientDB> update(@RequestBody ClientDB client) {
         return new ResponseEntity<>(clientService.update(client), HttpStatus.OK);
     }
 

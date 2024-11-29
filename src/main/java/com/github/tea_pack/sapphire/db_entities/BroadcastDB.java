@@ -1,18 +1,24 @@
-package com.github.tea_pack.sapphire.dtos;
+package com.github.tea_pack.sapphire.db_entities;
 
 import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-@AllArgsConstructor
+@Builder
 @NoArgsConstructor
-public class BroadcastDTO {
+@AllArgsConstructor
+public class BroadcastDB {
 
+    @Id
     public String name;
-    public int channelID;
+    public long channelId;
     public Integer ageRating;
     public String start;
     public String end;

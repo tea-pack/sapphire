@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.controllers;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.ChannelDB;
 import com.github.tea_pack.sapphire.dtos.ChannelDTO;
-import com.github.tea_pack.sapphire.entities.Channel;
 import com.github.tea_pack.sapphire.services.ChannelService;
 
 import org.springframework.http.HttpStatus;
@@ -27,17 +27,17 @@ public class ChannelController {
     private final ChannelService channelService;
 
     @PostMapping
-    public ResponseEntity<Channel> create(@RequestBody ChannelDTO dto) {
+    public ResponseEntity<ChannelDB> create(@RequestBody ChannelDTO dto) {
         return new ResponseEntity<>(channelService.create(dto), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Channel>> readAll() {
+    public ResponseEntity<List<ChannelDB>> readAll() {
         return new ResponseEntity<>(channelService.readAll(), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Channel> update(@RequestBody Channel channel) {
+    public ResponseEntity<ChannelDB> update(@RequestBody ChannelDB channel) {
         return new ResponseEntity<>(channelService.update(channel), HttpStatus.OK);
     }
 
