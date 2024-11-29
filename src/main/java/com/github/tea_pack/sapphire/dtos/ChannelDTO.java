@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ChannelDTO {
 
-    public long ID;
-    public String pack;
+    private long ID;
+    private String pack;
 }

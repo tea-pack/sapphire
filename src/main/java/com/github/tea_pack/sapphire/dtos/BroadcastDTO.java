@@ -11,12 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BroadcastDTO {
 
-    public String name;
-    public int channelID;
-    public Integer ageRating;
-    public String start;
-    public String end;
-    public Long duration;
-    public String category;
-    public List<String> genres;
+    private String name;
+    private int channelID;
+    private Integer ageRating;
+    private String start;
+    private String end;
+    private Long duration;
+    private String category;
+    private List<String> genres;
 }

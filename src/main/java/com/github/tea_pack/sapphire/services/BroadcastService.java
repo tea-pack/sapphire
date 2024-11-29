@@ -41,7 +41,7 @@ public class BroadcastService {
         return broadcastRepository.save(broadcast);
     }
 
-    public void delete(Long id) {
-        broadcastRepository.deleteById(id);
+    public void delete(Long broadcastId) {
+        broadcastRepository.deleteById(broadcastId);
     }
 }

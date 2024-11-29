@@ -17,12 +17,13 @@ import lombok.NoArgsConstructor;
 public class BroadcastDB {
 
     @Id
-    public String name;
-    public long channelId;
-    public Integer ageRating;
-    public String start;
-    public String end;
-    public Long duration;
-    public String category;
-    public List<String> genres;
+    // private Long broadcastId;
+    private String name;
+    private long channelId;
+    private Integer ageRating;
+    private String start;
+    private String end;
+    private Long duration;
+    private String category;
+    private List<String> genres;
 }

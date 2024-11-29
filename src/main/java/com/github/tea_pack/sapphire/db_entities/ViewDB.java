@@ -1,27 +1,27 @@
 package com.github.tea_pack.sapphire.db_entities;
 
-import com.github.tea_pack.sapphire.entities.Broadcast;
-
-import org.springframework.boot.autoconfigure.h2.H2ConsoleProperties.Settings;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-//@Entity
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class ViewDB {
 
-    public int clientID;
-    public int deviceID;
-    public Settings start;
-    public Settings end;
-    public Settings duration;
+    @Id
+    private long clientID;
+    private long deviceID;
+    private String start;
+    private String end;
+    private int duration;
     // @ManyToOne
     // @JoinColumn(name = "broadcast_id")
-    public Broadcast broadcast;
+    // private BroadcastDB broadcast;
+    private int broadcastId;
 }
