@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ClientDTO {
 
-    private long ID;
+    private long clientId;
     private String address;
     private Gender gender;
     private Integer ageMin;

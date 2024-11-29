@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class Client {
 
     @Id
-    private long ID;
+    private long clientId;
     private String address;
     private Gender gender;
     private Integer ageMin;

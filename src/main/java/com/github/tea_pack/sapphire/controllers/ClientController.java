@@ -14,32 +14,45 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
 @RestController
+@RequestMapping("/clients")
 @AllArgsConstructor
 public class ClientController {
 
     private final ClientService clientService;
 
-    @PostMapping("/client")
+    @PostMapping
     public ResponseEntity<Client> create(@RequestBody ClientDTO dto) {
         return new ResponseEntity<>(clientService.create(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/client")
+    @GetMapping
     public ResponseEntity<List<Client>> readAll() {
         return new ResponseEntity<>(clientService.readAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/client")
+    @GetMapping("/{clientId}")
+    public ResponseEntity<Client> readById(@PathVariable long clientId) {
+        return new ResponseEntity<>(clientService.readById(clientId), HttpStatus.OK);
+    }
+
+    @GetMapping("/statistics")
+    public ResponseEntity<List<Client>> readByGender(@RequestParam(name = "gender") String gender) {
+        return new ResponseEntity<>(clientService.readByGender(gender), HttpStatus.OK);
+    }
+
+    @PutMapping
     public ResponseEntity<Client> update(@RequestBody Client client) {
         return new ResponseEntity<>(clientService.update(client), HttpStatus.OK);
     }
 
-    @DeleteMapping("/client{id}")
+    @DeleteMapping("/{id}")
     public HttpStatus delete(@PathVariable Long id) {
         clientService.delete(id);
         return HttpStatus.OK;
