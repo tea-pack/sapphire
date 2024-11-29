@@ -1,10 +1,7 @@
 package com.github.tea_pack.sapphire.mail;
 
-import java.io.File;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -53,9 +50,10 @@ public class EmailServiceImpl implements EmailService {
             mimeMessageHelper.setText(details.getMsgBody());
             mimeMessageHelper.setSubject(details.getSubject());
 
-            FileSystemResource file = new FileSystemResource(new File(details.getAttachment()));
+            // FileSystemResource file = new FileSystemResource(new
+            // File(details.getAttachment()));
 
-            mimeMessageHelper.addAttachment(details.getAttachment(), file);
+            // mimeMessageHelper.addAttachment(details.getAttachment(), file);
 
             javamailSender.send(mimeMessage);
 
