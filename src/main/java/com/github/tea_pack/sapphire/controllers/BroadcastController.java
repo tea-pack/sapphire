@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.controllers;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.BroadcastDB;
 import com.github.tea_pack.sapphire.dtos.BroadcastDTO;
-import com.github.tea_pack.sapphire.entities.Broadcast;
 import com.github.tea_pack.sapphire.services.BroadcastService;
 
 import org.springframework.http.HttpStatus;
@@ -27,22 +27,22 @@ public class BroadcastController {
     private final BroadcastService broadcastService;
 
     @PostMapping
-    public ResponseEntity<Broadcast> create(@RequestBody BroadcastDTO dto) {
+    public ResponseEntity<BroadcastDB> create(@RequestBody BroadcastDTO dto) {
         return new ResponseEntity<>(broadcastService.create(dto), HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<Broadcast>> readAll() {
+    public ResponseEntity<List<BroadcastDB>> readAll() {
         return new ResponseEntity<>(broadcastService.readAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{broadastId}")
-    public ResponseEntity<Broadcast> readById(@PathVariable long broadcastId) {
+    public ResponseEntity<BroadcastDB> readById(@PathVariable long broadcastId) {
         return new ResponseEntity<>(broadcastService.readById(broadcastId), HttpStatus.OK);
     }
 
     @PutMapping
-    public ResponseEntity<Broadcast> update(@RequestBody Broadcast broadcast) {
+    public ResponseEntity<BroadcastDB> update(@RequestBody BroadcastDB broadcast) {
         return new ResponseEntity<>(broadcastService.update(broadcast), HttpStatus.OK);
     }
 
