@@ -1,7 +1,10 @@
 package com.github.tea_pack.sapphire.mail;
 
+import java.io.File;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -43,23 +46,43 @@ public class EmailServiceImpl implements EmailService {
         MimeMessageHelper mimeMessageHelper;
 
         try {
-            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
 
             mimeMessageHelper.setFrom(sender);
             mimeMessageHelper.setTo(details.getRecipient());
             mimeMessageHelper.setText(details.getMsgBody());
             mimeMessageHelper.setSubject(details.getSubject());
 
-            // FileSystemResource file = new FileSystemResource(new
-            // File(details.getAttachment()));
+            FileSystemResource file = new FileSystemResource(new File(details.getAttachment()));
 
-            // mimeMessageHelper.addAttachment(details.getAttachment(), file);
+            mimeMessageHelper.addAttachment(details.getAttachment(), file);
 
             javamailSender.send(mimeMessage);
 
-            return "Mail sent Successfully";
+            return "Success: email sent";
         } catch (MessagingException e) {
-            return "Error while sending mail!!!";
+            return "Error: sending email";
+        }
+    }
+
+    @Override
+    public String sendMailHTML(EmailDetails details) {
+        MimeMessage mimeMessage = javamailSender.createMimeMessage();
+
+        MimeMessageHelper mimeMessageHelper;
+
+        try {
+            mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
+
+            mimeMessageHelper.setFrom(sender);
+            mimeMessageHelper.setTo(details.getRecipient());
+            mimeMessageHelper.setText(details.getMsgBody(), true);
+            mimeMessageHelper.setSubject(details.getSubject());
+
+            javamailSender.send(mimeMessage);
+            return "Success: email sent";
+        } catch (Exception e) {
+            return "Error: sending email";
         }
     }
 

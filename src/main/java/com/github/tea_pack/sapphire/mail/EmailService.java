@@ -5,4 +5,6 @@ public interface EmailService {
     String sendSimpleEmail(EmailDetails details);
 
     String sendMailWithAttachment(EmailDetails details);
+
+    String sendMailHTML(EmailDetails details);
 }
