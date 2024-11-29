@@ -7,19 +7,17 @@ import java.util.List;
 public class View {
 	public int clientID;
 	public int deviceID;
-	public LocalDateTime startTime;
-	public Duration watchDuration;
+	public LocalDateTime start;
+	public LocalDateTime end;
+	public Duration duration;
 	public Broadcast broadcast;
-	public String category;
-	public List<String> genres;
 
-	public View(int clientID, int deviceID, LocalDateTime startTime, Duration watchDuration, Broadcast broadcast, String category, List<String> genres) {
+	public View(int clientID, int deviceID, LocalDateTime start, Duration duration, Broadcast broadcast) {
 		this.clientID = clientID;
 		this.deviceID = deviceID;
-		this.startTime = startTime;
-		this.watchDuration = watchDuration;
+		this.start = start;
+		this.end = start.plus(duration);
+		this.duration = duration;
 		this.broadcast = broadcast;
-		this.category = category;
-		this.genres = genres;
 	}
 }
