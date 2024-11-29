@@ -18,9 +18,8 @@ public class BroadcastService {
 
     public BroadcastDB create(BroadcastDTO dto) {
         return broadcastRepository.save(BroadcastDB.builder()
-                .channelID(dto.getChannelID())
                 .name(dto.getName())
-                .channelID(dto.getChannelID())
+                .channelId(dto.getChannelID())
                 .ageRating(dto.getAgeRating())
                 .start(dto.getStart())
                 .end(dto.getEnd())

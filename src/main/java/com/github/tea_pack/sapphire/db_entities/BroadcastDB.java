@@ -18,7 +18,7 @@ public class BroadcastDB {
 
     @Id
     public String name;
-    public long channelID;
+    public long channelId;
     public Integer ageRating;
     public String start;
     public String end;
