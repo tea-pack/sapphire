@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping("/broadcast")
+@RequestMapping("/broadcasts")
 @AllArgsConstructor
 public class BroadcastController {
 
@@ -36,7 +36,7 @@ public class BroadcastController {
         return new ResponseEntity<>(broadcastService.readAll(), HttpStatus.OK);
     }
 
-    @GetMapping("/{clientId}")
+    @GetMapping("/{broadastId}")
     public ResponseEntity<Broadcast> readById(@PathVariable long broadcastId) {
         return new ResponseEntity<>(broadcastService.readById(broadcastId), HttpStatus.OK);
     }
@@ -46,9 +46,9 @@ public class BroadcastController {
         return new ResponseEntity<>(broadcastService.update(broadcast), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public HttpStatus delete(@PathVariable Long id) {
-        broadcastService.delete(id);
+    @DeleteMapping("/{broadcastId}")
+    public HttpStatus delete(@PathVariable Long broadcastId) {
+        broadcastService.delete(broadcastId);
         return HttpStatus.OK;
     }
 }

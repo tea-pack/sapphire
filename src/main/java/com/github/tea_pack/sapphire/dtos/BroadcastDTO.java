@@ -1,7 +1,7 @@
 package com.github.tea_pack.sapphire.dtos;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,5 +17,7 @@ public class BroadcastDTO {
     public Integer ageRating;
     public LocalDateTime start;
     public LocalDateTime end;
-    public Duration duration;
+    public Long duration;
+    public String category;
+    public List<String> genres;
 }

@@ -25,6 +25,8 @@ public class BroadcastService {
                 .ageRating(dto.getAgeRating())
                 .start(dto.getStart().format(ViewParser.DATE_TIME_FORMAT))
                 .end(dto.getEnd().format(ViewParser.DATE_TIME_FORMAT))
+                .category(dto.getCategory())
+                .genres(dto.getGenres())
                 .build());
     }
 
