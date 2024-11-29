@@ -1,16 +1,10 @@
 package com.github.tea_pack.sapphire.services;
 
-import com.github.tea_pack.sapphire.repositories.ViewRepository;
-
-import org.springframework.stereotype.Service;
-
-import lombok.AllArgsConstructor;
-
-@Service
-@AllArgsConstructor
+//@Service
+//@AllArgsConstructor
 public class VeiwService {
 
-    private final ViewRepository clientRepository;
+    // private final ViewRepository clientRepository;
 
     // public ViewDB create(ViewDTO dto) {
     // return clientRepository.save(ViewDB.builder()
