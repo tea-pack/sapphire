@@ -7,6 +7,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BroadcastStatistics {
 	public final Broadcast broadcast;
@@ -48,5 +49,17 @@ public class BroadcastStatistics {
 
 	public long uniqueWatchers() {
 		return clientWatch.size();
+	}
+
+
+	public static Map<Broadcast, BroadcastStatistics> getBroadcastStatistics(List<View> views) {
+		Map<Broadcast, BroadcastStatistics> map = new HashMap<>();
+		for (View view : views) {
+			if(!map.containsKey(view.broadcast)){
+				map.put(view.broadcast, new BroadcastStatistics(view.broadcast));
+			}
+			map.get(view.broadcast).view(view);
+		}
+		return map;
 	}
 }
