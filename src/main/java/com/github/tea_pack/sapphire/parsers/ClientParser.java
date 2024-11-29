@@ -13,14 +13,7 @@ public class ClientParser {
         String address = values[1];
         Gender gender = Gender.of(values[2]);
         Range age = Range.from(values[3]);
-        // return new ClientDTO(ID, address, gender, age.start, age.end);
-        ClientDTO client = new ClientDTO();
-        client.setClientId(ID);
-        client.setAddress(address);
-        client.setGender(gender);
-        client.setAgeMin(age.start);
-        client.setAgeMax(age.end);
-        return client;
+        return new ClientDTO(ID, address, gender, age.start, age.end);
     }
 
     public static List<ClientDTO> parse(List<String[]> values) {

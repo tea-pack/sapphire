@@ -2,27 +2,23 @@ package com.github.tea_pack.sapphire.entities;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
 
-import com.github.tea_pack.sapphire.dtos.BroadcastDTO;
+import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Entity
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class View {
     public int clientID;
     public int deviceID;
-    public LocalDateTime startTime;
-    public Duration watchDuration;
-    public BroadcastDTO broadcast;
-    public String category;
-    public List<String> genres;
-
-    public View(int clientID, int deviceID, LocalDateTime startTime, Duration watchDuration, BroadcastDTO broadcastDTO,
-            String category, List<String> genres) {
-        this.clientID = clientID;
-        this.deviceID = deviceID;
-        this.startTime = startTime;
-        this.watchDuration = watchDuration;
-        this.broadcast = broadcastDTO;
-        this.category = category;
-        this.genres = genres;
-    }
+    public LocalDateTime start;
+    public LocalDateTime end;
+    public Duration duration;
+    public Broadcast broadcast;
 }

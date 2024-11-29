@@ -2,7 +2,7 @@ package com.github.tea_pack.sapphire;
 
 import java.util.List;
 
-import com.github.tea_pack.sapphire.dtos.ClientDTO;
+import com.github.tea_pack.sapphire.entities.Client;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.parsers.CSVParser;
 import com.github.tea_pack.sapphire.parsers.ClientParser;
@@ -12,13 +12,11 @@ public class ParserTests {
 
     public static void main(String[] args) {
         ParserTests tests = new ParserTests();
-        tests.channelTest();
+        tests.viewTest();
     }
 
     // @Test
-    public void channelTest() {
-
-    public static void viewTest() {
+    public void viewTest() {
         String data = """
                 client;device;time_ch;ch_id;epg_name;time_epg;time_to_epg;duration;category;subcategory
                 u011766;d008493;2024-10-01 05:35:38;216;Самые шокирующие гипотезы (16+);2024-10-01 05:00:00;2024-10-01 06:00:00;1462;Познавательное;Расследование
@@ -325,8 +323,10 @@ public class ParserTests {
             csvParser.next();
             List<View> list = ViewParser.parse(csvParser.consume());
             for (View view : list) {
-                System.out.printf("%s: %s%n", view.broadcast.duration.toSeconds(),
-                        view.broadcast.start.format(ViewParser.DATE_TIME_FORMAT));
+                System.out.printf("BC: %s -- %s : %ss%n", view.broadcast.start.format(ViewParser.DATE_TIME_FORMAT),
+                        view.broadcast.end.format(ViewParser.DATE_TIME_FORMAT), view.broadcast.duration.toSeconds());
+                System.out.printf("CL: %s -- %s : %ss%n%n", view.start.format(ViewParser.DATE_TIME_FORMAT),
+                        view.end.format(ViewParser.DATE_TIME_FORMAT), view.duration.toSeconds());
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
@@ -334,7 +334,7 @@ public class ParserTests {
     }
 
     // @Test
-    public static void clientTest() {
+    public void clientTest() {
         String data = """
                 client;address;gender;age
                 u011766;улица Артамонова, 16;m;60-69
@@ -350,12 +350,9 @@ public class ParserTests {
         CSVParser csvParser = new CSVParser(data);
         try {
             csvParser.next();
-            List<ClientDTO> list = ClientParser.parse(csvParser.consume());
-            for (ClientDTO client : list) {
-                System.out.printf("%d; gender: %s, %d-%d years; address: \"%s\"%n", client.getClientId(),
-                        client.getGender().toString(),
-                        // client.getAge().start, client.getAge().end,
-                        client.getAddress());
+            List<Client> list = ClientParser.parse(csvParser.consume());
+            for (Client client : list) {
+
             }
         } catch (Exception ex) {
             System.err.println(ex.getMessage());

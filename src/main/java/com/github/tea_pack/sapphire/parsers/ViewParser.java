@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.github.tea_pack.sapphire.dtos.BroadcastDTO;
+import com.github.tea_pack.sapphire.entities.Broadcast;
 import com.github.tea_pack.sapphire.entities.View;
 
 public class ViewParser {
@@ -19,26 +19,23 @@ public class ViewParser {
     public static View parse(String[] values) throws Exception {
         int clientID = Integer.parseInt(values[0].substring(1));
         int deviceID = Integer.parseInt(values[1].substring(1));
-        LocalDateTime startTime = LocalDateTime.parse(values[2], DATE_TIME_FORMAT);
-
         int channelID = Integer.parseInt(values[3]);
         String broadcastName = parseName(values[4]);
         Integer ageRating = parseAgeRating(values[4]);
-        LocalDateTime broadcastStart = LocalDateTime.parse(values[5], DATE_TIME_FORMAT);
-        LocalDateTime broadcastEnd = LocalDateTime.parse(values[6], DATE_TIME_FORMAT);
-        BroadcastDTO broadcastDTO = new BroadcastDTO();
-        broadcastDTO.setName(broadcastName);
-        broadcastDTO.setChannelID(channelID);
-        broadcastDTO.setAgeRating(ageRating);
-        broadcastDTO.setStart(broadcastStart);
-        broadcastDTO.setEnd(broadcastEnd);
-        broadcastDTO.setDuration(Duration.between(broadcastStart, broadcastEnd));
-
-        Duration watchDuration = Duration.ofSeconds(Integer.parseInt(values[7]));
         String category = values[8];
         List<String> genres = parseGenres(values[9]);
 
-        return new View(clientID, deviceID, startTime, watchDuration, broadcastDTO, category, genres);
+        LocalDateTime startTime = LocalDateTime.parse(values[2], DATE_TIME_FORMAT);
+        Duration watchDuration = Duration.ofSeconds(Integer.parseInt(values[7]));
+
+        LocalDateTime broadcastStart = LocalDateTime.parse(values[5], DATE_TIME_FORMAT);
+        LocalDateTime broadcastEnd = LocalDateTime.parse(values[6], DATE_TIME_FORMAT);
+        Broadcast broadcast = new Broadcast(broadcastName, channelID, ageRating, broadcastStart, broadcastEnd, category,
+                genres);
+
+        startTime = startTime.isAfter(broadcastStart) ? startTime : broadcastStart;
+
+        return new View(clientID, deviceID, startTime, watchDuration, broadcast);
     }
 
     public static List<View> parse(List<String[]> values) throws Exception {
@@ -70,6 +67,6 @@ public class ViewParser {
         if (matcher.find()) {
             return Integer.parseInt(matcher.group(1));
         }
-        return null; // FIXME: default value
+        return null;
     }
 }
