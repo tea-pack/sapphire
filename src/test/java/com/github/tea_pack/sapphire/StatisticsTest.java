@@ -1,11 +1,11 @@
 package com.github.tea_pack.sapphire;
 
-import com.github.tea_pack.sapphire.entities.Client;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.parsers.CSVParser;
 import com.github.tea_pack.sapphire.parsers.ViewParser;
 import com.github.tea_pack.sapphire.statistics.BroadcastStatistics;
 import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
+import com.github.tea_pack.sapphire.statistics.GroupBroadcastStatistics;
 
 import java.nio.file.Path;
 import java.time.Duration;
@@ -28,10 +28,10 @@ public class StatisticsTest {
 	}
 
 	public static void overWatched(List<View> views) {
-		List<ChannelPopularity.Stats> top = ChannelPopularity.top100(views);
+		List<GroupBroadcastStatistics> top = GroupBroadcastStatistics.topNamesByWatchTime(100, views);
 
 		int count = 0;
-		for (ChannelPopularity.Stats stat: top){
+		for (GroupBroadcastStatistics stat: top){
 			for(BroadcastStatistics bcStat: stat.broadcastStatistics){
 				Duration bcDur = bcStat.broadcast.duration;
 				for(Map.Entry<Long, Duration> entry: bcStat.clientWatch.entrySet()){
@@ -51,9 +51,9 @@ public class StatisticsTest {
 	}
 
 	public static void top100Broadcast(List<View> views) throws Exception{
-		List<ChannelPopularity.Stats> top = ChannelPopularity.top100(views);
+		List<GroupBroadcastStatistics> top = GroupBroadcastStatistics.topNamesByWatchTime(100, views);
 		int count = 1;
-		for(ChannelPopularity.Stats stats: top) {
+		for(GroupBroadcastStatistics stats: top) {
 			System.out.printf("%d. ", count++);
 			System.out.println(stats.name);
 			System.out.printf("%s%n%n", stats);

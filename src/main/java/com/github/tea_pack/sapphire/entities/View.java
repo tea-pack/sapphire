@@ -1,10 +1,10 @@
 package com.github.tea_pack.sapphire.entities;
 
-import com.github.tea_pack.sapphire.parsers.ViewParser;
-import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
+
+import static com.github.tea_pack.sapphire.utility.FMT.DATE_TIME_FORMAT;
+import static com.github.tea_pack.sapphire.utility.FMT.formatDuration;
 
 public class View {
     public long clientID;
@@ -28,7 +28,7 @@ public class View {
         return String.format("Client: %d; Device: %d\n" +
                 "%s -- %s; duration: %s\n" +
                 "%s", clientID, deviceID,
-                start.format(ViewParser.DATE_TIME_FORMAT), end.format(ViewParser.DATE_TIME_FORMAT), ChannelPopularity.formatDuration(duration),
-                broadcast);
+                             start.format(DATE_TIME_FORMAT), end.format(DATE_TIME_FORMAT), formatDuration(duration),
+                             broadcast);
     }
 }

@@ -2,12 +2,15 @@ package com.github.tea_pack.sapphire.entities;
 
 import com.github.tea_pack.sapphire.parsers.ViewParser;
 import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
+import com.github.tea_pack.sapphire.utility.FMT;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+
+import static com.github.tea_pack.sapphire.utility.FMT.DATE_TIME_FORMAT;
 
 public class Broadcast {
     public String name;
@@ -34,9 +37,9 @@ public class Broadcast {
     public String toString() {
         return name +
                 "\nRating: " + ageRating +
-                "\n" + start.format(ViewParser.DATE_TIME_FORMAT) +
-                " -- " + end.format(ViewParser.DATE_TIME_FORMAT) +
-                ", duration: " + ChannelPopularity.formatDuration(duration) +
+                "\n" + start.format(DATE_TIME_FORMAT) +
+                " -- " + end.format(DATE_TIME_FORMAT) +
+                ", duration: " + FMT.formatDuration(duration) +
                 "\ncategory: " + category +
                 ", genres: " + genres +
                 "\n";

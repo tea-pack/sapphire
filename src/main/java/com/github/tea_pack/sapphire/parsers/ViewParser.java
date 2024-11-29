@@ -2,7 +2,6 @@ package com.github.tea_pack.sapphire.parsers;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,10 +11,9 @@ import java.util.regex.Pattern;
 import com.github.tea_pack.sapphire.entities.Broadcast;
 import com.github.tea_pack.sapphire.entities.View;
 
-public class ViewParser {
-    // TODO: move this constant
-    public static final DateTimeFormatter DATE_TIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+import static com.github.tea_pack.sapphire.utility.FMT.DATE_TIME_FORMAT;
 
+public class ViewParser {
     public static View parse(String[] values) throws Exception {
         int clientID = Integer.parseInt(values[0].substring(1));
         int deviceID = Integer.parseInt(values[1].substring(1));
