@@ -1,9 +1,9 @@
 package com.github.tea_pack.sapphire.parsers;
 
-import com.github.tea_pack.sapphire.entities.Channel;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.github.tea_pack.sapphire.entities.Channel;
 
 public class ChannelParser {
 	public static Channel parse(String[] values) {

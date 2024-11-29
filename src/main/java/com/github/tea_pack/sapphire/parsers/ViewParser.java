@@ -1,6 +1,5 @@
 package com.github.tea_pack.sapphire.parsers;
 
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,20 +19,23 @@ public class ViewParser {
     public static View parse(String[] values) throws Exception {
         int clientID = Integer.parseInt(values[0].substring(1));
         int deviceID = Integer.parseInt(values[1].substring(1));
-        LocalDateTime startTime = LocalDateTime.parse(values[2], DATE_TIME_FORMAT);
-
         int channelID = Integer.parseInt(values[3]);
         String broadcastName = parseName(values[4]);
         Integer ageRating = parseAgeRating(values[4]);
-        LocalDateTime broadcastStart = LocalDateTime.parse(values[5], DATE_TIME_FORMAT);
-        LocalDateTime broadcastEnd = LocalDateTime.parse(values[6], DATE_TIME_FORMAT);
-        Broadcast broadcast = new Broadcast(broadcastName, channelID, ageRating, broadcastStart, broadcastEnd);
-
-        Duration watchDuration = Duration.ofSeconds(Integer.parseInt(values[7]));
         String category = values[8];
         List<String> genres = parseGenres(values[9]);
 
-        return new View(clientID, deviceID, startTime, watchDuration, broadcast, category, genres);
+        LocalDateTime startTime = LocalDateTime.parse(values[2], DATE_TIME_FORMAT);
+        Duration watchDuration = Duration.ofSeconds(Integer.parseInt(values[7]));
+
+        LocalDateTime broadcastStart = LocalDateTime.parse(values[5], DATE_TIME_FORMAT);
+        LocalDateTime broadcastEnd = LocalDateTime.parse(values[6], DATE_TIME_FORMAT);
+        Broadcast broadcast = new Broadcast(broadcastName, channelID, ageRating, broadcastStart, broadcastEnd, category,
+                genres);
+
+        startTime = startTime.isAfter(broadcastStart) ? startTime : broadcastStart;
+
+        return new View(clientID, deviceID, startTime, watchDuration, broadcast);
     }
 
     public static List<View> parse(List<String[]> values) throws Exception {
@@ -60,11 +62,11 @@ public class ViewParser {
     }
 
     private static Integer parseAgeRating(String name) {
-		Pattern pattern = Pattern.compile("\\((\\d+)\\+\\)");
-		Matcher matcher = pattern.matcher(name);
-		if(matcher.find()){
-			return Integer.parseInt(matcher.group(1));
-		}
-		return null; // FIXME: default value
-	}
+        Pattern pattern = Pattern.compile("\\((\\d+)\\+\\)");
+        Matcher matcher = pattern.matcher(name);
+        if (matcher.find()) {
+            return Integer.parseInt(matcher.group(1));
+        }
+        return null;
+    }
 }

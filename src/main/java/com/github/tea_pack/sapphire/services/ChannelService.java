@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.services;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.ChannelDB;
 import com.github.tea_pack.sapphire.dtos.ChannelDTO;
-import com.github.tea_pack.sapphire.entities.Channel;
 import com.github.tea_pack.sapphire.repositories.ChannelRepository;
 
 import org.springframework.stereotype.Service;
@@ -16,22 +16,22 @@ public class ChannelService {
 
     private final ChannelRepository channelRepository;
 
-    public Channel create(ChannelDTO dto) {
-        return channelRepository.save(Channel.builder()
-                .ID(dto.getID())
+    public ChannelDB create(ChannelDTO dto) {
+        return channelRepository.save(ChannelDB.builder()
+                .channelId(dto.getID())
                 .pack(dto.getPack())
                 .build());
     }
 
-    public List<Channel> readAll() {
+    public List<ChannelDB> readAll() {
         return channelRepository.findAll();
     }
 
-    public Channel update(Channel channel) {
+    public ChannelDB update(ChannelDB channel) {
         return channelRepository.save(channel);
     }
 
-    public void delete(Long id) {
-        channelRepository.deleteById(id);
+    public void delete(Long channelId) {
+        channelRepository.deleteById(channelId);
     }
 }

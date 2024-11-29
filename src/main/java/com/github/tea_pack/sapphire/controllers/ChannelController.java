@@ -2,8 +2,8 @@ package com.github.tea_pack.sapphire.controllers;
 
 import java.util.List;
 
+import com.github.tea_pack.sapphire.db_entities.ChannelDB;
 import com.github.tea_pack.sapphire.dtos.ChannelDTO;
-import com.github.tea_pack.sapphire.entities.Channel;
 import com.github.tea_pack.sapphire.services.ChannelService;
 
 import org.springframework.http.HttpStatus;
@@ -14,34 +14,36 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
 @RestController
+@RequestMapping("/channels")
 @AllArgsConstructor
 public class ChannelController {
 
     private final ChannelService channelService;
 
-    @PostMapping("/channel")
-    public ResponseEntity<Channel> create(@RequestBody ChannelDTO dto) {
+    @PostMapping
+    public ResponseEntity<ChannelDB> create(@RequestBody ChannelDTO dto) {
         return new ResponseEntity<>(channelService.create(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/channel")
-    public ResponseEntity<List<Channel>> readAll() {
+    @GetMapping
+    public ResponseEntity<List<ChannelDB>> readAll() {
         return new ResponseEntity<>(channelService.readAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/channel")
-    public ResponseEntity<Channel> update(@RequestBody Channel channel) {
+    @PutMapping
+    public ResponseEntity<ChannelDB> update(@RequestBody ChannelDB channel) {
         return new ResponseEntity<>(channelService.update(channel), HttpStatus.OK);
     }
 
-    @DeleteMapping("/channel{id}")
-    public HttpStatus delete(@PathVariable Long id) {
-        channelService.delete(id);
+    @DeleteMapping("/{channelId}")
+    public HttpStatus delete(@PathVariable Long channelId) {
+        channelService.delete(channelId);
         return HttpStatus.OK;
     }
 }

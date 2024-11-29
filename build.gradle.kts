@@ -30,6 +30,9 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+    implementation("org.springframework:spring-context:6.2.0")
+    implementation("org.springframework.boot:spring-boot-starter-mail:3.4.0")
 	// testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.1")
