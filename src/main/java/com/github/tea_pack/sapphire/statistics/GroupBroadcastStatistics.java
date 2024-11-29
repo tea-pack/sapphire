@@ -47,12 +47,16 @@ public class GroupBroadcastStatistics {
 		return broadcastStatistics.size();
 	}
 
-	public long uniqueWatchers() {
+	public HashSet<Long> uniqueWatchersSet() {
 		HashSet<Long> watchers = new HashSet<>();
 		for(BroadcastStatistics bcStat: broadcastStatistics){
 			watchers.addAll(bcStat.clientWatch.keySet());
 		}
-		return watchers.size();
+		return watchers;
+	}
+
+	public long uniqueWatchers() {
+		return uniqueWatchersSet().size();
 	}
 
 	@Override
