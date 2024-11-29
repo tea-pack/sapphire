@@ -18,7 +18,7 @@ public class ChannelService {
 
     public Channel create(ChannelDTO dto) {
         return channelRepository.save(Channel.builder()
-                .ID(dto.getID())
+                .channelId(dto.getID())
                 .pack(dto.getPack())
                 .build());
     }
@@ -31,7 +31,7 @@ public class ChannelService {
         return channelRepository.save(channel);
     }
 
-    public void delete(Long id) {
-        channelRepository.deleteById(id);
+    public void delete(Long channelId) {
+        channelRepository.deleteById(channelId);
     }
 }

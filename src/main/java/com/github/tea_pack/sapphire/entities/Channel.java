@@ -15,6 +15,6 @@ import lombok.NoArgsConstructor;
 public class Channel {
 
     @Id
-    public long ID;
+    public long channelId;
     public String pack;
 }
