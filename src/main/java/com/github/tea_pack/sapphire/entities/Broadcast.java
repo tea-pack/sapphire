@@ -1,28 +1,27 @@
 package com.github.tea_pack.sapphire.entities;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Broadcast {
-
-    @Id
     public String name;
     public long channelID;
     public Integer ageRating;
-    public String start;
-    public String end;
-    public Long duration;
+    public LocalDateTime start;
+    public LocalDateTime end;
+    public Duration duration;
     public String category;
     public List<String> genres;
+
+    public Broadcast(String name, long channelID, Integer ageRating, LocalDateTime start, LocalDateTime end, String category, List<String> genres) {
+        this.name = name;
+        this.channelID = channelID;
+        this.ageRating = ageRating;
+        this.start = start;
+        this.end = end;
+        this.duration = Duration.between(start, end);
+        this.category = category;
+        this.genres = genres;
+    }
 }

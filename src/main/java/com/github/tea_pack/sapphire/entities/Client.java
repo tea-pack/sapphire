@@ -1,23 +1,16 @@
 package com.github.tea_pack.sapphire.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Entity
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Client {
+    public final long clientID;
+    public final String address;
+    public final Gender gender;
+    public final int estAge;
 
-    @Id
-    private long clientId;
-    private String address;
-    private Gender gender;
-    private Integer ageMin;
-    private Integer ageMax;
+    public Client(long clientID, String address, Gender gender, int estAge) {
+        this.clientID = clientID;
+        this.address = address;
+        this.gender = gender;
+        this.estAge = estAge;
+    }
 }
