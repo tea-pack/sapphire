@@ -1,7 +1,7 @@
 package com.github.tea_pack.sapphire.statistics;
 
 import com.github.tea_pack.sapphire.entities.Broadcast;
-import com.github.tea_pack.sapphire.entities.View;
+import com.github.tea_pack.sapphire.entities.FullView;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ import java.util.Map;
 public class BroadcastStatistics {
 	public final Broadcast broadcast;
 	public final HashMap<Long, Duration> clientWatch;
-	public final HashMap<Long, List<View>> clientView;
+	public final HashMap<Long, List<FullView>> clientView;
 
 	public BroadcastStatistics(Broadcast broadcast) {
 		this.broadcast = broadcast;
@@ -20,11 +20,12 @@ public class BroadcastStatistics {
 		clientView = new HashMap<>();
 	}
 
-	public void view(View view) {
-		if (view.duration.toSeconds() > 10) {
+	public void view(FullView view) {
+		if (view.info.duration.toSeconds() > 10) {
 			if (broadcast.equals(view.broadcast)) {
-				clientWatch.compute(view.clientID, (client, duration) -> duration == null ? Duration.ZERO.plus(view.duration) : duration.plus(view.duration));
-				clientView.compute(view.clientID, (client, list) -> {
+				clientWatch.compute(view.client.clientID, (client, duration) ->
+						duration == null ? Duration.ZERO.plus(view.info.duration) : duration.plus(view.info.duration));
+				clientView.compute(view.client.clientID, (client, list) -> {
 					if(list == null) {
 						list = new ArrayList<>();
 					}
@@ -52,9 +53,9 @@ public class BroadcastStatistics {
 	}
 
 
-	public static Map<Broadcast, BroadcastStatistics> getBroadcastStatistics(List<View> views) {
+	public static Map<Broadcast, BroadcastStatistics> getBroadcastStatistics(List<FullView> views) {
 		Map<Broadcast, BroadcastStatistics> map = new HashMap<>();
-		for (View view : views) {
+		for (FullView view : views) {
 			if(!map.containsKey(view.broadcast)){
 				map.put(view.broadcast, new BroadcastStatistics(view.broadcast));
 			}

@@ -1,6 +1,7 @@
 package com.github.tea_pack.sapphire.statistics;
 
 import com.github.tea_pack.sapphire.entities.Broadcast;
+import com.github.tea_pack.sapphire.entities.FullView;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.utility.CMPair;
 import com.github.tea_pack.sapphire.utility.FMT;
@@ -47,12 +48,16 @@ public class GroupBroadcastStatistics {
 		return broadcastStatistics.size();
 	}
 
-	public long uniqueWatchers() {
+	public HashSet<Long> uniqueWatchersSet() {
 		HashSet<Long> watchers = new HashSet<>();
 		for(BroadcastStatistics bcStat: broadcastStatistics){
 			watchers.addAll(bcStat.clientWatch.keySet());
 		}
-		return watchers.size();
+		return watchers;
+	}
+
+	public long uniqueWatchers() {
+		return uniqueWatchersSet().size();
 	}
 
 	@Override
@@ -64,7 +69,7 @@ public class GroupBroadcastStatistics {
 				"\nBroadcast count: " + broadcastCount() + "\n";
 	}
 
-	public static List<GroupBroadcastStatistics> topNamesByWatchTime(int count, List<View> views) {
+	public static List<GroupBroadcastStatistics> topNamesByWatchTime(int count, List<FullView> views) {
 		Map<Broadcast, BroadcastStatistics> map = BroadcastStatistics.getBroadcastStatistics(views);
 		Map<String, GroupBroadcastStatistics> statsMap = new HashMap<>();
 
