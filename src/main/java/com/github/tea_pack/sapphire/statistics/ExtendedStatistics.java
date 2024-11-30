@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExtendedStatistics {
-    private List<Entry> entries = new ArrayList<>();
+    public List<Entry> entries = new ArrayList<>();
 
     public void addEntry(Entry entry) {
         entries.add(entry);
@@ -20,7 +20,7 @@ public class ExtendedStatistics {
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public class Entry {
+    public static class Entry {
 
         private String program;
         private String timeWatch;
@@ -30,7 +30,7 @@ public class ExtendedStatistics {
         private String avgWatchingTime;
     }
 
-    public class StatisticsPreferences {
+    public static class StatisticsPreferences {
         String startDate;
         String endDate;
         boolean isMonday;

@@ -4,8 +4,14 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.github.tea_pack.sapphire.entities.Channel;
+import com.github.tea_pack.sapphire.entities.Client;
+import com.github.tea_pack.sapphire.entities.FullView;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.parsers.CSVParser;
+import com.github.tea_pack.sapphire.parsers.ChannelParser;
+import com.github.tea_pack.sapphire.parsers.ClientParser;
+import com.github.tea_pack.sapphire.parsers.FullViewParser;
 import com.github.tea_pack.sapphire.parsers.ViewParser;
 import com.github.tea_pack.sapphire.utility.FMT;
 
@@ -54,11 +60,23 @@ public class UniqueStatsReport {
             Path path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/epg_stat_2024_10.csv");
             CSVParser csvParser = new CSVParser(path);
             csvParser.next();
-
             List<View> views = ViewParser.parse(csvParser.consume());
 
-            List<GroupBroadcastStatistics> top = GroupBroadcastStatistics.topNamesByWatchTime(10, views);
+            path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/package_channel.csv");
+            csvParser = new CSVParser(path);
+            csvParser.next();
+            List<Channel> channels = ChannelParser.parse(csvParser.consume());
+
+            path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/client.csv");
+            csvParser = new CSVParser(path);
+            csvParser.next();
+            List<Client> clients = ClientParser.parse(csvParser.consume());
+
+            List<FullView> fullViews = FullViewParser.parse(clients, views, channels);
+
+            List<GroupBroadcastStatistics> top = GroupBroadcastStatistics.topNamesByWatchTime(10, fullViews);
             System.out.println("parsed");
+
             for (GroupBroadcastStatistics stats : top) {
                 addEntry(new ReportEntry(
                         stats.broadcastStatistics.stream().findAny().get().broadcast.channelID,
