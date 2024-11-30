@@ -1,7 +1,6 @@
 package com.github.tea_pack.sapphire.mail;
 
 import com.github.tea_pack.sapphire.statistics.UniqueStatsReport;
-import com.github.tea_pack.sapphire.statistics.UniqueStatsReport.ReportEntry;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +23,12 @@ public class EmailController {
     @PostMapping("/sendStats")
     public String sendStatistics(@RequestBody EmailDetails details) {
         UniqueStatsReport report = new UniqueStatsReport();
-        report.addEntry(new ReportEntry("Первый канал", "Программа 1", 120, 42));
-        report.addEntry(new ReportEntry("Третий канал", "Новости", 450, 12));
-        report.addEntry(new ReportEntry("Четверг", "Лучший боевик", 120, 423));
-        report.addEntry(new ReportEntry("Автобус", "Мстители", 764, 554));
-        report.addEntry(new ReportEntry("Карусель", "Заголовок", 92, 23));
+        // report.addEntry(new ReportEntry("Первый канал", "Программа 1", 120, 42));
+        // report.addEntry(new ReportEntry("Третий канал", "Новости", 450, 12));
+        // report.addEntry(new ReportEntry("Четверг", "Лучший боевик", 120, 423));
+        // report.addEntry(new ReportEntry("Автобус", "Мстители", 764, 554));
+        // report.addEntry(new ReportEntry("Карусель", "Заголовок", 92, 23));
+        report.calcStat();
 
         details.setSubject("Статистика по популярности");
         details.setMsgBody(
