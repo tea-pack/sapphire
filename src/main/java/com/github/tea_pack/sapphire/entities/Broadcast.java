@@ -1,12 +1,9 @@
 package com.github.tea_pack.sapphire.entities;
 
-import com.github.tea_pack.sapphire.parsers.ViewParser;
-import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
 import com.github.tea_pack.sapphire.utility.FMT;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 

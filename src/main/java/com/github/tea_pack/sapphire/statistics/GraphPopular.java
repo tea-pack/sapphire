@@ -1,6 +1,7 @@
 package com.github.tea_pack.sapphire.statistics;
 
 import com.github.tea_pack.sapphire.entities.Channel;
+import com.github.tea_pack.sapphire.entities.FullView;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.utility.Pair;
 
@@ -55,7 +56,7 @@ public class GraphPopular {
 		}
 	}
 
-	public static Pair<List<Node>, List<Edge>> constructGraph(int count, List<View> views, List<Channel> channels) {
+	public static Pair<List<Node>, List<Edge>> constructGraph(int count, List<FullView> views, List<Channel> channels) {
 		List<GroupBroadcastStatistics> groupStatistics = GroupBroadcastStatistics.topNamesByWatchTime(count, views);
 		count = groupStatistics.size();
 		List<Node> nodes = new ArrayList<>();
