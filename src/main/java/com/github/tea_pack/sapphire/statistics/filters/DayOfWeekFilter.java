@@ -23,12 +23,8 @@ public class DayOfWeekFilter implements Filter<DayOfWeek>{
 	// Field
 	public final int mask;
 
-	private DayOfWeekFilter(int mask) {
-		this.mask = mask;
-	}
-
-	public DayOfWeekFilter of(int mask) {
-		return new DayOfWeekFilter(mask & WEEK);
+	public DayOfWeekFilter(int mask) {
+		this.mask = mask & WEEK;
 	}
 
 	// Checkers

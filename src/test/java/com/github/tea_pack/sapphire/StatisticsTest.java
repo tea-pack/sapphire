@@ -9,14 +9,21 @@ import com.github.tea_pack.sapphire.statistics.BroadcastStatistics;
 import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
 import com.github.tea_pack.sapphire.statistics.GraphPopular;
 import com.github.tea_pack.sapphire.statistics.GroupBroadcastStatistics;
+import com.github.tea_pack.sapphire.statistics.filters.DateFilter;
+import com.github.tea_pack.sapphire.statistics.filters.DateTimeWeekFilter;
+import com.github.tea_pack.sapphire.statistics.filters.DayOfWeekFilter;
+import com.github.tea_pack.sapphire.statistics.filters.DurationFilter;
 import com.github.tea_pack.sapphire.utility.Pair;
 
 import java.io.PrintStream;
 import java.nio.file.Path;
 import java.time.Duration;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.function.Predicate;
 
 public class StatisticsTest {
 	public static void main(String[] args) {
@@ -27,15 +34,28 @@ public class StatisticsTest {
 			csvParser.next();
 			List<View> views = ViewParser.parse(csvParser.consume());
 
-			path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/package_channel.csv");
-			csvParser = new CSVParser(path);
-			csvParser.next();
-			List<Channel> channels = ChannelParser.parse(csvParser.consume());
+			// path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/package_channel.csv");
+			// csvParser = new CSVParser(path);
+			// csvParser.next();
+			// List<Channel> channels = ChannelParser.parse(csvParser.consume());
 
-			graphTest(views, channels);
+			//graphTest(views, channels);
+			filterTest(views);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
+	}
+
+	public static void filterTest(List<View> views) throws Exception{
+		DayOfWeekFilter week = new DayOfWeekFilter(DayOfWeekFilter.MONDAY | DayOfWeekFilter.WEDNESDAY | DayOfWeekFilter.FRIDAY);
+		DateFilter date = new DateFilter(LocalDate.of(2024, Month.OCTOBER, 1), LocalDate.of(2024, Month.NOVEMBER, 1));
+		DateTimeWeekFilter dtw = new DateTimeWeekFilter(date, null, week);
+		DurationFilter dur = new DurationFilter(Duration.ofMinutes(10), Duration.ofMinutes(40));
+		views = views.stream().filter(view ->  {
+			return dtw.test(view.broadcast.start) && dur.test(view.broadcast.duration);
+		}).toList();
+
+		top100Broadcast(views);
 	}
 
 	public static void graphTest(List<View> views, List<Channel> channels) throws Exception {
