@@ -1,13 +1,10 @@
 package com.github.tea_pack.sapphire.statistics;
 
-import com.github.tea_pack.sapphire.entities.Broadcast;
+import com.github.tea_pack.sapphire.entities.Channel;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.utility.Pair;
 
-import java.io.File;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.nio.file.Path;
 import java.util.*;
 
 public class GraphPopular {
@@ -15,13 +12,13 @@ public class GraphPopular {
 		public int id;
 		public int hours;
 		public String name;
-		public String category;
+		public String pack;
 
-		public Node(int id, int hours, String name, String category) {
+		public Node(int id, int hours, String name, String pack) {
 			this.id = id;
 			this.hours = hours;
 			this.name = name;
-			this.category = category;
+			this.pack = pack;
 		}
 
 		@Override
@@ -30,7 +27,7 @@ public class GraphPopular {
 			sb.append("id: ").append(id);
 			sb.append(", hours: ").append(hours);
 			sb.append(", name: \"").append(name).append('"');
-			sb.append(", category: \"").append(category).append('"');
+			sb.append(", pack: \"").append(pack).append('"');
 			sb.append('}');
 			return sb.toString();
 		}
@@ -58,15 +55,20 @@ public class GraphPopular {
 		}
 	}
 
-	public static Pair<List<Node>, List<Edge>> constructGraph(int count, List<View> views) {
+	public static Pair<List<Node>, List<Edge>> constructGraph(int count, List<View> views, List<Channel> channels) {
 		List<GroupBroadcastStatistics> groupStatistics = GroupBroadcastStatistics.topNamesByWatchTime(count, views);
 		count = groupStatistics.size();
 		List<Node> nodes = new ArrayList<>();
 		List<Edge> edges = new ArrayList<>();
 
+		HashMap<Long, String> channelPack = new HashMap<>();
+		for(Channel channel: channels) {
+			channelPack.put(channel.channelId, channel.pack);
+		}
+
 		for (int i = 0; i < count; i++) {
 			GroupBroadcastStatistics group1 = groupStatistics.get(i);
-			nodes.add(getNode(i, group1));
+			nodes.add(getNode(i, group1, channelPack));
 			for (int j = i + 1; j < count; j++) {
 				GroupBroadcastStatistics group2 = groupStatistics.get(j);
 				Edge edge = getEdge(i, j, group1, group2);
@@ -79,12 +81,12 @@ public class GraphPopular {
 		return new Pair<>(nodes, edges);
 	}
 
-	public static Node getNode(int id, GroupBroadcastStatistics group) {
+	public static Node getNode(int id, GroupBroadcastStatistics group, Map<Long, String> channelPack) {
 		String name = group.name;
 		// FIXME: think of adequate way to fetch category
-		String category = group.broadcastStatistics.stream().findAny().get().broadcast.category;
+		String pack = channelPack.get(group.broadcastStatistics.stream().findAny().get().broadcast.channelID);
 		int hours = (int) group.totalWatchTime().toHours();
-		return new Node(id, hours, name, category);
+		return new Node(id, hours, name, pack);
 	}
 
 	public static Edge getEdge(int id1, int id2, GroupBroadcastStatistics group1, GroupBroadcastStatistics group2) {

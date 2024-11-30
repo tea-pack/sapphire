@@ -1,7 +1,9 @@
 package com.github.tea_pack.sapphire;
 
+import com.github.tea_pack.sapphire.entities.Channel;
 import com.github.tea_pack.sapphire.entities.View;
 import com.github.tea_pack.sapphire.parsers.CSVParser;
+import com.github.tea_pack.sapphire.parsers.ChannelParser;
 import com.github.tea_pack.sapphire.parsers.ViewParser;
 import com.github.tea_pack.sapphire.statistics.BroadcastStatistics;
 import com.github.tea_pack.sapphire.statistics.ChannelPopularity;
@@ -23,17 +25,21 @@ public class StatisticsTest {
 			Path path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/epg_stat_2024_10.csv");
 			CSVParser csvParser = new CSVParser(path);
 			csvParser.next();
-
 			List<View> views = ViewParser.parse(csvParser.consume());
 
-			graphTest(views);
+			path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/package_channel.csv");
+			csvParser = new CSVParser(path);
+			csvParser.next();
+			List<Channel> channels = ChannelParser.parse(csvParser.consume());
+
+			graphTest(views, channels);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}
 
-	public static void graphTest(List<View> views) throws Exception {
-		Pair<List<GraphPopular.Node>, List<GraphPopular.Edge>> pair = GraphPopular.constructGraph(100, views);
+	public static void graphTest(List<View> views, List<Channel> channels) throws Exception {
+		Pair<List<GraphPopular.Node>, List<GraphPopular.Edge>> pair = GraphPopular.constructGraph(100, views, channels);
 		Path path = Path.of("./src/test/java/com/github/tea_pack/sapphire/source_data/graph_test.txt");
 		try (PrintStream out = new PrintStream(path.toFile())){
 			GraphPopular.writeGraph(pair.key, pair.value, out);
