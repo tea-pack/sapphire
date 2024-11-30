@@ -28,7 +28,6 @@ public class EmailController {
         // report.addEntry(new ReportEntry("Четверг", "Лучший боевик", 120, 423));
         // report.addEntry(new ReportEntry("Автобус", "Мстители", 764, 554));
         // report.addEntry(new ReportEntry("Карусель", "Заголовок", 92, 23));
-        report.calcStat();
 
         details.setSubject("Статистика по популярности");
         details.setMsgBody(

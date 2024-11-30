@@ -32,7 +32,7 @@ public class UniqueStatsReport {
         }
     }
 
-    List<ReportEntry> entries = new ArrayList<>();
+    private List<ReportEntry> entries = new ArrayList<>();
 
     public void addEntry(ReportEntry entry) {
         entries.add(entry);
